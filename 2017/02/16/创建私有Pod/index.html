@@ -6,24 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://fangli.me">
-  <title>UIImage方向问题 | 一本正经的瞎写</title>
+  <title>如何创建私有Pod | 一本正经的瞎写</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="H5调用iOS客户端拍照之后上传照片到服务器，在拍照之后的预览是正常的，但是上传之后看webView里面的照片的方向不对，在UIImage里面有看到一个UIImageOrientation属性
-
-取值为以下枚举">
+  <meta name="description" content="创建Pod之前应该先了解cocoapods是如何去找到这个Pod的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UIImage方向问题">
-<meta property="og:url" content="http://fangli.me/2016/09/18/UIImage方向问题/index.html">
+<meta property="og:title" content="如何创建私有Pod">
+<meta property="og:url" content="http://fangli.me/2017/02/16/创建私有Pod/index.html">
 <meta property="og:site_name" content="一本正经的瞎写">
-<meta property="og:description" content="H5调用iOS客户端拍照之后上传照片到服务器，在拍照之后的预览是正常的，但是上传之后看webView里面的照片的方向不对，在UIImage里面有看到一个UIImageOrientation属性
-
-取值为以下枚举">
-<meta property="og:updated_time" content="2017-02-24T17:14:52.000Z">
+<meta property="og:description" content="创建Pod之前应该先了解cocoapods是如何去找到这个Pod的">
+<meta property="og:image" content="http://fangli.me/imageSource/createPod_1.png">
+<meta property="og:image" content="http://fangli.me/imageSource/createPod_2.png">
+<meta property="og:image" content="http://fangli.me/imageSource/createPod_3.png">
+<meta property="og:updated_time" content="2017-03-03T11:03:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="UIImage方向问题">
-<meta name="twitter:description" content="H5调用iOS客户端拍照之后上传照片到服务器，在拍照之后的预览是正常的，但是上传之后看webView里面的照片的方向不对，在UIImage里面有看到一个UIImageOrientation属性
-
-取值为以下枚举">
+<meta name="twitter:title" content="如何创建私有Pod">
+<meta name="twitter:description" content="创建Pod之前应该先了解cocoapods是如何去找到这个Pod的">
+<meta name="twitter:image" content="http://fangli.me/imageSource/createPod_1.png">
   
     <link rel="alternative" href="/atom.xml" title="一本正经的瞎写" type="application/atom+xml">
   
@@ -165,20 +163,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-UIImage方向问题" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-创建私有Pod" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      UIImage方向问题
+      如何创建私有Pod
     </h1>
   
 
         
-        <a href="/2016/09/18/UIImage方向问题/" class="archive-article-date">
-  	<time datetime="2016-09-18T02:04:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-18</time>
+        <a href="/2017/02/16/创建私有Pod/" class="archive-article-date">
+  	<time datetime="2017-02-16T13:14:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-16</time>
 </a>
         
       </header>
@@ -186,18 +184,37 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>H5调用iOS客户端拍照之后上传照片到服务器，在拍照之后的预览是正常的，但是上传之后看webView里面的照片的方向不对，在UIImage里面有看到一个<code>UIImageOrientation</code>属性</p>
+<p>创建Pod之前应该先了解cocoapods是如何去找到这个Pod的</p>
 </blockquote>
-<p>取值为以下枚举</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">typedef NS_ENUM(NSInteger, UIImageOrientation) &#123;</div><div class="line">    UIImageOrientationUp,            // default orientation</div><div class="line">    UIImageOrientationDown,          // 180 deg rotation</div><div class="line">    UIImageOrientationLeft,          // 90 deg CCW</div><div class="line">    UIImageOrientationRight,         // 90 deg CW</div><div class="line">    UIImageOrientationUpMirrored,    // as above but image mirrored along other axis. horizontal flip</div><div class="line">    UIImageOrientationDownMirrored,  // horizontal flip</div><div class="line">    UIImageOrientationLeftMirrored,  // vertical flip</div><div class="line">    UIImageOrientationRightMirrored, // vertical flip</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>通过测试，iPhone拍照之后的照片的<code>UIImageOrientation</code>属性与拍照时手机的朝向有关，因为iPhone展示图片时会根据这个属性将照片旋转到正确的位置，但是上传到服务器之后并不会根据这个属性的值进行旋转。因此在上传服务器之前应该将照片摆正，即把<code>UIImageOrientation</code>属性改为<code>UIImageOrientationUp</code>。</p>
-<p>拍照时home键在右边，拍出来的照片的<code>UIImageOrientation</code>属性为<code>UIImageOrientationUp</code></p>
-<p>home键在左边，拍出来的照片的<code>UIImageOrientation</code>属性为<code>UIImageOrientationDown</code></p>
-<p>home键在下边，拍出来的照片的<code>UIImageOrientation</code>属性为<code>UIImageOrientationRight</code></p>
-<p>home键在上边，拍出来的照片的<code>UIImageOrientation</code>属性为<code>UIImageOrientationLeft</code></p>
-<p>通过给UIImage加个方法将传进来的图片摆正<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">+ (<span class="built_in">UIImage</span> *)orientationUpImage: (<span class="built_in">UIImage</span> *) image</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (image.imageOrientation == <span class="built_in">UIImageOrientationUp</span>) <span class="keyword">return</span> image;</div><div class="line">	<span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(image.size, <span class="literal">NO</span>, image.scale);</div><div class="line">   	[image drawInRect:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, image.size.width, image.size.height)];</div><div class="line">	<span class="built_in">UIImage</span> *normalizedImage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</div><div class="line">	<span class="built_in">UIGraphicsEndImageContext</span>();</div><div class="line">	<span class="keyword">return</span> normalizedImage;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>因为在iOS中会自动把图片显示正确，因此用重新画一张图片，结果得到的图片就是摆正的图片。</p>
+<p>安装完cocoapods之后会生成一个文件夹<code>~/.cocoapods/repos/</code>, 每次执行<code>pod search [podname]</code>或者<code>pod install</code>之后默认都会去<code>~/.cocoapods/repos/</code>目录及其子目录下寻找名为[podname]的文件夹, 找到对应的版本号, 根据该版本的.podspec去下载相应的代码, 然后集成到项目中</p>
+<p>如果在Podfile中指定repos的路径(可以是本地的也可以是远程的), 则在<code>pod install</code>之后会去相应的git仓库寻找.podspec</p>
+<p>因此创建一个私有Pod的步骤分为创建repos和创建pod</p>
+<h3 id="创建repos"><a href="#创建repos" class="headerlink" title="创建repos"></a>创建repos</h3><p>创建一个git仓库, 可以在本地, 也可以用Github等, 因为是私有库, 所以这里只是在本地创建.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir MyTestRepo</div><div class="line"><span class="built_in">cd</span> MyTestRepo</div><div class="line">git init</div></pre></td></tr></table></figure>
+<p>复制MyTestRepo路径, 可以在<code>MyTestRepo</code>目录里面执行<code>pwd</code>, 然后把完整路径复制出来</p>
+<p>把MyTestRepo添加到cocoapod的repos中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod repo add MyTestRepo [git仓库文件路径]</div></pre></td></tr></table></figure>
+<p>之后可以在 <code>~/.cocoapod/repos</code>里面看到有一个名为<code>MyTestRepo</code>的文件夹</p>
+<p>以后创建的Pod就是提交到这个仓库里面</p>
+<h3 id="创建Pod"><a href="#创建Pod" class="headerlink" title="创建Pod"></a>创建Pod</h3><h4 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h4><p>可以使用<code>pod lib create [podName]</code>命令来创建一个Pod, 创建完后的目录结构如下</p>
+<p><img src="/imageSource/createPod_1.png" alt=""></p>
+<p>其中Example文件夹为Demo工程, 里面引用了MyTestPod目录下的MyTestPod, 打开<code>MyTestPod.xcworkspace</code>, 在pods里面能看到<code>Development Pods</code>文件夹, 开始的时候的修改都是在这个文件夹里面</p>
+<p><code>MyTestPod.podspec</code>文件为对这个pod的描述, 往Repos提交Pod的时候, 就是把这个文件提交到MyTestRepo中</p>
+<h4 id="Step2"><a href="#Step2" class="headerlink" title="Step2"></a>Step2</h4><p>修改<code>MyTestPod.podspec</code>文件, 这是一个Ruby文件, 如果把环境改为Ruby则会显示高亮, 各字段的含义如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new do |s|</div><div class="line">  # pod的名字</div><div class="line">  s.name             = &apos;MyTestPod&apos;</div><div class="line">  </div><div class="line">  # 版本</div><div class="line">  s.version          = &apos;0.0.1&apos;</div><div class="line">  </div><div class="line">  # 简短的描述</div><div class="line">  s.summary          = &apos;A short description&apos;</div><div class="line">  </div><div class="line">  # 完整的描述, 不能比s.summary短</div><div class="line">  s.description      = &lt;&lt;-DESC</div><div class="line">                        A longlong description</div><div class="line">                       DESC</div><div class="line">  s.homepage         = &apos;https://xxx.com/MyTestPod&apos;</div><div class="line">  s.license          = &#123; :type =&gt; &apos;MIT&apos;, :file =&gt; &apos;LICENSE&apos; &#125;</div><div class="line">  s.author           = &#123; &apos;方立&apos; =&gt; &apos;fangli02@meituan.com&apos; &#125;</div><div class="line">  </div><div class="line">  # 源代码路径, 执行pod install的时候会根据这个路径去下载代码, 可以是git, ssh, http等</div><div class="line">  s.source           = &#123; :git =&gt; &apos;/Users/fangli/iOSProject/MyTestPod&apos;, :tag =&gt; s.version.to_s &#125;</div><div class="line">  s.ios.deployment_target = &apos;8.0&apos;</div><div class="line">  </div><div class="line">  # 源代码文件, 这里表示MyTestPod/Classes/ 下及其子目录的所有文件</div><div class="line">  s.source_files = &apos;MyTestPod/Classes/**/*&apos;</div><div class="line">  </div><div class="line">  # 资源文件</div><div class="line">  # s.resource_bundles = &#123;</div><div class="line">  #   &apos;MyTestPod&apos; =&gt; [&apos;MyTestPod/Assets/*.png&apos;]</div><div class="line">  # &#125;</div><div class="line">  </div><div class="line">  # 公开的头文件, 如果不写这个则默认所有都是公开, 否则只公开写的头文件, 非公开的头文件不能被导入</div><div class="line">  # s.public_header_files = &apos;Pod/Classes/**/*.h&apos;</div><div class="line">  </div><div class="line">  # 依赖的frameworks</div><div class="line">  # s.frameworks = &apos;UIKit&apos;, &apos;MapKit&apos;</div><div class="line">  </div><div class="line">  # 依赖的其他pod</div><div class="line">  # s.dependency &apos;AFNetworking&apos;, &apos;~&gt; 2.3&apos;</div><div class="line">end</div></pre></td></tr></table></figure>
+<h4 id="Step3"><a href="#Step3" class="headerlink" title="Step3"></a>Step3</h4><p>在当前目录下执行<code>pod lib lint</code>验证是否通过</p>
+<p>当显示<code>MyTestPod passed validation.</code>时则表示验证通过, 否则根据提示的内容对<code>MyTestPod.podspec</code>进行修改</p>
+<h4 id="Step4"><a href="#Step4" class="headerlink" title="Step4"></a>Step4</h4><p>提交当前变动, 并给当前git打上tag</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add .</div><div class="line">git commit -m <span class="string">"init"</span></div><div class="line">git tag <span class="string">"0.0.1"</span></div></pre></td></tr></table></figure>
+<h4 id="Step5"><a href="#Step5" class="headerlink" title="Step5"></a>Step5</h4><p>把当前pod提交到MyTestRepo中, 在终端中执行</p>
+<p><code>pod repo push MyTestRepo MyTestPod.podspec</code></p>
+<p>执行成功会出现如下文件夹<br><img src="/imageSource/createPod_2.png" alt=""></p>
+<p>之后执行<code>pod search MyTestPod</code>就能在本地搜到了<br><img src="/imageSource/createPod_3.png" alt=""></p>
+<h3 id="使用自己创建的pod"><a href="#使用自己创建的pod" class="headerlink" title="使用自己创建的pod"></a>使用自己创建的pod</h3><p>打开新建一个项目, 创建Podfile, 在第一行加入</p>
+<p><code>source &#39;/Users/fangli/.cocoapods/repos/MyTestRepo&#39;</code></p>
+<p>引入自己的pod<br><code>pod &#39;MyTestPod&#39;</code></p>
+<p>之后执行<code>pod install</code>就会根据MyTestRepo里面的描述文件去下载pod的代码, 然后集成到项目里面</p>
 
       
 
@@ -232,7 +249,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">UIImage</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pod</a>
         		</li>
       		
 		</ul>
@@ -299,7 +316,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://fangli.me/2016/09/18/UIImage方向问题/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://fangli.me/2017/02/16/创建私有Pod/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -313,18 +330,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2016/10/18/安装配置ZSH/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          安装配置ZSH
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/09/17/本地同时保存多组ssh密钥以及密钥的生成/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">本地同时保存多组ssh密钥以及密钥的生成</div>
+    <a href="/2016/10/18/安装配置ZSH/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">安装配置ZSH</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -338,7 +346,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="UIImage方向问题" data-title="UIImage方向问题" data-url="http://fangli.me/2016/09/18/UIImage方向问题/"></div>
+	<div class="ds-thread" data-thread-key="创建私有Pod" data-title="如何创建私有Pod" data-url="http://fangli.me/2017/02/16/创建私有Pod/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
