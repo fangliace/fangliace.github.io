@@ -139,6 +139,105 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-神奇的1986年5月4日" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/03/神奇的1986年5月4日/">神奇的1986年5月4日</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/03/神奇的1986年5月4日/" class="archive-article-date">
+  	<time datetime="2017-03-03T11:26:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>昨天分了个crash, 看了崩溃信息是<code>exception &#39;NSInternalInconsistencyException&#39;, reason: &#39;Invalid parameter not satisfying: date&#39;</code><br>是给UIDatePicker设置日期的时候发生了crash, 如下图:</p>
+</blockquote>
+<p><img src="/imageSource/19850504_1.png" alt=""></p>
+<p>初步分析是userDate为nil导致的crash, 但是不知道为什么userDate会为空, 看了数据发现只有某些用户才会发生crash, 而且是连续的发生(设置生日的时候crash, 过几分钟打开APP再设置生日, 再crash…), 怀疑是不是服务器把这些用户的生日存错了, 导致返回的日期格式不对(后台:这锅我们不背)</p>
+<p>今天找后台查了发生crash的用户的生日格式, 发现格式没问题, 但是, 发生有一个crash的用户的生日是1986-05-04, 于是发现……</p>
+<p><img src="/imageSource/19850504_2.png" alt=""></p>
+<p>大概意思是说1986年5月4日没有对应的Date(没有这一天?)</p>
+<p>看了<a href="http://baike.baidu.com/link?url=TekzHVIlSnxU0ws6IjQCtY_5JDHc0NkTU9w2VEEzCN0zEp_qKXeVetadJ6BtAv7XM1jiXXp4Wo53nqoWT0U22NUzOYkY-NzljlQGUrYRZFAwJFBCQDfnJ3ARnTYECX2E" target="_blank" rel="external">夏令时相关资料</a>, 我国从1986年5月4日开始实行夏令时, 在这一天会把时间调快1小时, 到9月的某一天再调回来, 因此并不是说没有1986年5月4日这一天, 而应该是这一天少了一个小时, 写段代码验证下:<br><br><img src="/imageSource/19850504_3.png" alt=""></p>
+<p>果然, 是因为<code>Asia/Shanghai</code>这个地方的1986年5月4日这一天0点-1点这段时间没了(没有对应的GMT时间)</p>
+<p>根据夏令时的说法:</p>
+<blockquote>
+<p>实施夏令时的时间为:<br><br>1986年5月4日至9月14日（1986年因是实行夏令时的第一年，从5月4日开始到9月14日结束）<br><br>1987年4月12日至9月13日<br><br>1988年4月10日至9月11日<br><br>1989年4月16日至9月17日<br><br>1990年4月15日至9月16日<br><br>1991年4月14日至9月15日<br></p>
+</blockquote>
+<p>所以以上夏令时开始时间都少了一小时(0点-1点)</p>
+<p><img src="/imageSource/19850504_4.png" alt=""></p>
+<p>解决办法:<br><br>更改<code>dateFormatter</code>的<code>timeZone</code>, 在中国默认是<code>Asia/Shanghai</code>, 把时区修改为<code>GMT+0800</code>就好了<br><br>代码:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSDateFormatter</span> *dateFormatter = [[<span class="built_in">NSDateFormatter</span> alloc]init];</div><div class="line"><span class="comment">/*设置时区为GMT+0800, 在中国默认为Asia/Shanghai*/</span></div><div class="line">[dateFormatter setTimeZone:[<span class="built_in">NSTimeZone</span> timeZoneWithName:<span class="string">@"GMT+0800"</span>]];</div><div class="line">[dateFormatter setDateFormat:<span class="string">@"yyyy-MM-dd"</span>];</div><div class="line"><span class="built_in">NSDate</span> *userDate = [dateFormatter dateFromString:[SAKUserService sharedUserService].userExInfo.birthdayString];</div><div class="line"><span class="keyword">if</span> (!userDate) &#123;</div><div class="line">	userDate = [<span class="built_in">NSDate</span> date];</div><div class="line">&#125;</div><div class="line">[<span class="keyword">self</span>.datePicker setDate:userDate];</div></pre></td></tr></table></figure>
+<p>总结: 以后使用<code>NSDateFormatter</code>的时候最好设置<code>timeZone</code>为GMT+x时区, 不要使用默认所在国家的<code>timeZone</code>, 也有其他国家也使用(过)夏令时</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">NSDateFormatter</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">UIDatePicker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">crash</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/iOS/" class="article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/03/神奇的1986年5月4日/">阅读全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-创建私有Pod" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -643,6 +742,18 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NSDateFormatter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">UIDatePicker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">crash</a>
               </li>
             
             <div class="clearfix"></div>
