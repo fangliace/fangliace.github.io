@@ -8,29 +8,20 @@
   <link rel="dns-prefetch" href="http://fangli.me">
   <title>神奇的1986年5月4日 | 一本正经的瞎写</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="昨天分了个crash, 看了崩溃信息是exception &amp;#39;NSInternalInconsistencyException&amp;#39;, reason: &amp;#39;Invalid parameter not satisfying: date&amp;#39;是给UIDatePicker设置日期的时候发生了crash, 如下图:
-
-
-初步分析是userDate为nil导致的crash, 但是不知道">
+  <meta name="description" content="昨天分了个crash, 看了崩溃信息是exception &amp;#39;NSInternalInconsistencyException&amp;#39;, reason: &amp;#39;Invalid parameter not satisfying: date&amp;#39;是给UIDatePicker设置日期的时候发生了crash, 如下图:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神奇的1986年5月4日">
 <meta property="og:url" content="http://fangli.me/2017/03/03/神奇的1986年5月4日/index.html">
 <meta property="og:site_name" content="一本正经的瞎写">
-<meta property="og:description" content="昨天分了个crash, 看了崩溃信息是exception &amp;#39;NSInternalInconsistencyException&amp;#39;, reason: &amp;#39;Invalid parameter not satisfying: date&amp;#39;是给UIDatePicker设置日期的时候发生了crash, 如下图:
-
-
-初步分析是userDate为nil导致的crash, 但是不知道">
+<meta property="og:description" content="昨天分了个crash, 看了崩溃信息是exception &amp;#39;NSInternalInconsistencyException&amp;#39;, reason: &amp;#39;Invalid parameter not satisfying: date&amp;#39;是给UIDatePicker设置日期的时候发生了crash, 如下图:">
 <meta property="og:image" content="http://fangli.me/imageSource/19850504_1.png">
 <meta property="og:image" content="http://fangli.me/imageSource/19850504_2.png">
 <meta property="og:image" content="http://fangli.me/imageSource/19850504_3.png">
 <meta property="og:image" content="http://fangli.me/imageSource/19850504_4.png">
-<meta property="og:updated_time" content="2017-03-03T11:31:12.000Z">
+<meta property="og:updated_time" content="2017-03-03T11:51:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神奇的1986年5月4日">
-<meta name="twitter:description" content="昨天分了个crash, 看了崩溃信息是exception &amp;#39;NSInternalInconsistencyException&amp;#39;, reason: &amp;#39;Invalid parameter not satisfying: date&amp;#39;是给UIDatePicker设置日期的时候发生了crash, 如下图:
-
-
-初步分析是userDate为nil导致的crash, 但是不知道">
+<meta name="twitter:description" content="昨天分了个crash, 看了崩溃信息是exception &amp;#39;NSInternalInconsistencyException&amp;#39;, reason: &amp;#39;Invalid parameter not satisfying: date&amp;#39;是给UIDatePicker设置日期的时候发生了crash, 如下图:">
 <meta name="twitter:image" content="http://fangli.me/imageSource/19850504_1.png">
   
     <link rel="alternative" href="/atom.xml" title="一本正经的瞎写" type="application/atom+xml">
@@ -178,6 +169,7 @@
         <blockquote>
 <p>昨天分了个crash, 看了崩溃信息是<code>exception &#39;NSInternalInconsistencyException&#39;, reason: &#39;Invalid parameter not satisfying: date&#39;</code><br>是给UIDatePicker设置日期的时候发生了crash, 如下图:</p>
 </blockquote>
+<a id="more"></a>
 <p><img src="/imageSource/19850504_1.png" alt=""></p>
 <p>初步分析是userDate为nil导致的crash, 但是不知道为什么userDate会为空, 看了数据发现只有某些用户才会发生crash, 而且是连续的发生(设置生日的时候crash, 过几分钟打开APP再设置生日, 再crash…), 怀疑是不是服务器把这些用户的生日存错了, 导致返回的日期格式不对(后台:这锅我们不背)</p>
 <p>今天找后台查了发生crash的用户的生日格式, 发现格式没问题, 但是, 发生有一个crash的用户的生日是1986-05-04, 于是发现……</p>
